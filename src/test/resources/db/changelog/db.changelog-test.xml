@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <include file="/db/changelog/db.changelog-master.xml"/>
+
+    <changeSet id="INSERT_TEST_DATA" author="gurbanov">
+        <sql>
+            INSERT INTO STOCK(NAME, START_DATE, END_DATE, ACTIVE, FEED_LINK)
+            VALUES ('STOCK_NAME', '2021-11-10 15:36', '2022-03-25 15:36', 'ENABLE', 'LINK')
+        </sql>
+        <sql>
+            INSERT INTO STOCK(NAME, START_DATE, END_DATE, ACTIVE, FEED_LINK)
+            VALUES ('STOCK_NAME_2', '2021-11-10 15:36', '2022-03-25 15:36', 'ENABLE', 'SECOND_LINK')
+        </sql>
+    </changeSet>
+
+    <changeSet id="INSERT_PRODUCT_TEST_DATA" author="gurbanov">
+        <sql>
+            INSERT INTO PRODUCT(ID, NAME, PRICE, FLAG, STOCK_ID)
+            VALUES ('0a8dc8ec-4507-4a35-abfc-cc5a8063914f', 'PRODUCT_NAME', 15.2, 'MANUAL_MODE', 1)
+        </sql>
+        <sql>
+            INSERT INTO PRODUCT(ID, NAME, PRICE, FLAG, STOCK_ID)
+            VALUES ('172fb0cd-aa4f-4a05-8e07-b9f7e58fe52c', 'PRODUCT_NAME_SECOND', 22.2, 'AUTO_MODE', 2)
+        </sql>
+    </changeSet>
+    <changeSet id="INSERT_DEFAULT_ADMIN_AND_USER" author="gurbanov">
+        <sql>
+            INSERT INTO USERENTITY (fullName, PASSWORD, USERNAME, ROLE_ID)
+            VALUES ('Thanos', '$2a$10$E6k9MZd.geehGpTB2ZwcQOttxeA6hi5bwekq.ND6xpDgp23BMJnAO', 'user_second_root', 1)
+        </sql>
+        <sql>
+            INSERT INTO USERENTITY (fullName, PASSWORD, USERNAME, ROLE_ID)
+            VALUES ('Thomas', '$2a$10$E6k9MZd.geehGpTB2ZwcQOttxeA6hi5bwekq.ND6xpDgp23BMJnAO', 'user_third_root', 2)
+        </sql>
+    </changeSet>
+</databaseChangeLog>

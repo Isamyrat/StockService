@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <changeSet id="CREATE_ROLE_TABLE" author="gurbanov">
+        <createTable tableName="ROLE">
+            <column name="ID" type="int">
+                <constraints primaryKey="true" primaryKeyName="PK_USER_ID" nullable="false"/>
+            </column>
+            <column name="NAME" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="CREATE_USER_TABLE" author="gurbanov">
+        <createTable tableName="USERENTITY">
+            <column name="ID" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="FULLNAME" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PASSWORD" type="varchar(70)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="USERNAME" type="varchar(50)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="ROLE_ID" type="int">
+                <constraints references="ROLE(ID)" foreignKeyName="FK_ROLE_ID" nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <!--@formatter:off-->
+    <changeSet id="INSERT_DEFAULT_ROLES" author="gurbanov">
+        <sql>
+            INSERT INTO ROLE (ID, NAME)
+            VALUES (1, 'ROLE_ADMIN'),(2, 'ROLE_USER')
+        </sql>
+    </changeSet>
+    <!--@formatter:on-->
+    <changeSet id="INSERT_DEFAULT_ADMIN_AND_USER" author="gurbanov">
+        <sql>
+            INSERT INTO USERENTITY (fullName, PASSWORD, USERNAME, ROLE_ID)
+            VALUES ('Thanos' ,'$2a$10$E6k9MZd.geehGpTB2ZwcQOttxeA6hi5bwekq.ND6xpDgp23BMJnAO','admin_root', 1)
+        </sql>
+        <sql>
+            INSERT INTO USERENTITY (fullName, PASSWORD, USERNAME, ROLE_ID)
+            VALUES ('Thomas' ,'$2a$10$E6k9MZd.geehGpTB2ZwcQOttxeA6hi5bwekq.ND6xpDgp23BMJnAO','user_root', 2)
+        </sql>
+    </changeSet>
+    <changeSet id="CREATE_STOCK_TABLE" author="gurbanov">
+        <createTable tableName="STOCK">
+            <column name="ID" type="int" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="PK_PRODUCT_ID" nullable="false"/>
+            </column>
+            <column name="NAME" type="varchar(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="START_DATE" type="TIMESTAMP"/>
+            <column name="END_DATE" type="TIMESTAMP"/>
+            <column name="ACTIVE" type="varchar(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FEED_LINK" type="Text"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="CREATE_PRODUCT_TABLE" author="gurbanov">
+        <createTable tableName="PRODUCT">
+            <column name="ID" type="varchar(50)">
+                <constraints primaryKey="true" primaryKeyName="PK_PRODUCT_PICTURES_ID" nullable="false"/>
+            </column>
+            <column name="NAME" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PRICE" type="float">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FLAG" type="varchar(20)"/>
+
+            <column name="STOCK_ID" type="int">
+                <constraints references="STOCK(ID)" foreignKeyName="FK_STOCK_ID" nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="CREATE_PRODUCT_PICTURES_TABLE" author="gurbanov">
+        <createTable tableName="PRODUCT_PICTURES">
+            <column name="ID" type="varchar(50)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="PRODUCT_IMAGES_LINK" type="text"/>
+
+            <column name="PRODUCT_ID" type="varchar(50)">
+                <constraints references="PRODUCT(ID)" foreignKeyName="FK_PRODUCT_ID" nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
