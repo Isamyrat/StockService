@@ -56,28 +56,5 @@ class UserControllerTest extends AbstractWebTests {
             .andExpect(xpath("//*[@id='user-list']/tr[@data-username='maria002']").exists());
 
     }
-   /* @Test
-    void testFindAllWithForbidden() throws Exception {
-        this.mockMvc.perform(get(USER_URL + "/findAll")
-                                 .header(AUTHORIZATION, BEARER_PREFIX + USER_TOKEN))
-            .andDo(print())
-            .andExpect(status().isForbidden());
-
-    }*/
-
-   /*
-   dont work
-   @Test
-    void testAddUserWithNullUsername() throws Exception{
-        String data = gson.toJson(new UserDto("Maria Suhareva", "", "maria"));
-
-        this.mockMvc.perform(post(USER_URL + "/registration")
-                                 .contentType(MediaType.APPLICATION_JSON)
-                                 .content(data)
-                                 .header(AUTHORIZATION, BEARER_PREFIX + ADMIN_TOKEN))
-            .andDo(print())
-            .andExpect(status().isOk())
-            .andExpect(xpath("//*[@id='user-errors']/small[@error-message='Password can not be empty.']").exists());
-    }*/
 
 }
