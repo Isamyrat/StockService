@@ -1,0 +1,20 @@
+version: '3.8'
+services:
+    app:
+        container_name: stock-service
+        image: stock-service
+        build: ./
+        ports:
+            - 8088:8088
+        depends_on:
+            - postgresqldb
+        environment:
+             - SECRET=sdagf443a2cdxf3f23f44325d4
+    postgresqldb:
+        image: postgres
+        ports:
+            - "5432:5432"
+        environment:
+            - POSTGRES_PASSWORD=isa_password
+            - POSTGRES_USER=isa_user
+            - POSTGRES_DB=postgres
