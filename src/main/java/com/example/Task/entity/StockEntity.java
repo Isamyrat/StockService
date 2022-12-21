@@ -1,10 +1,5 @@
 package com.example.Task.entity;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,13 +10,16 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Size;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
 @Setter
 @EqualsAndHashCode
-@ToString
 @Entity
 @Table(name = "STOCK")
 public class StockEntity {
@@ -40,7 +38,6 @@ public class StockEntity {
     @Column(name = "END_DATE")
     private LocalDateTime endDate;
 
-    // режим архива
     @Size(max = 20)
     @Column(name = "ACTIVE")
     private String active;

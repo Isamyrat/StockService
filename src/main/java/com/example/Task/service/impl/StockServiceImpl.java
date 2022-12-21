@@ -117,7 +117,7 @@ public class StockServiceImpl implements StockService {
     }
 
     private LocalDateTime parseStringToLocaleDateTime(final String time) {
-        LocalDateTime localDateTime = null;
+        LocalDateTime localDateTime;
         try {
             localDateTime = LocalDateTime.parse(time);
         }  catch (final DateTimeParseException e) {

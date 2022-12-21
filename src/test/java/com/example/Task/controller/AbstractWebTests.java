@@ -1,7 +1,6 @@
 package com.example.Task.controller;
 
 import com.example.Task.jwt.JwtUtils;
-import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,10 +15,6 @@ import static com.example.Task.util.ConstantsHolder.SECRET;
 @AutoConfigureMockMvc
 public abstract class AbstractWebTests {
 
-    @Autowired
-    protected Gson gson;
-
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
     protected MockMvc mockMvc;
 

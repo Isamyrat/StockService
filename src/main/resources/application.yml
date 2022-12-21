@@ -1,9 +1,6 @@
 server:
     port: 8088
 spring:
-    mvc:
-        converters:
-            preferred-json-mapper: gson
     jpa:
         hibernate:
             naming:
@@ -12,11 +9,9 @@ spring:
             hibernate:
                 dialect: org.hibernate.dialect.PostgreSQLDialect
     datasource:
-        url: jdbc:postgresql://localhost:5432/postgres
-        username: ${SPRING_DATASOURCE_USERNAME}
-        password: ${SPRINT_DATASOURCE_PASSWORD}
-    gson:
-        serialize-nulls: false
+        url: jdbc:postgresql://postgresqldb:5432/postgres
+        username: isa_user
+        password: isa_password
     liquibase:
         change-log: db/changelog/db.changelog-master.xml
     freemarker:

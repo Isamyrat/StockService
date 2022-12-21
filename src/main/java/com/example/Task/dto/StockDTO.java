@@ -12,7 +12,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode
-@AllArgsConstructor
 public class StockDTO {
     public static final String DATE_NOT_BE_EMPTY = "Date parameters should be not null.";
     public static final String STOCK_NAME_CAN_NOT_BE_EMPTY = "Stock name can not be empty.";

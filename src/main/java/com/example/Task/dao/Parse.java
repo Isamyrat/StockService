@@ -18,9 +18,9 @@ import java.net.URL;
 public class Parse implements XmlParse{
 
     @Override
-    public OffersDTO parser(final String url, final String stockName ) {
-        final String PATH_XML = "src/main/resources/sax/" + stockName + ".dtd";
+    public OffersDTO parser(final String url,final String pathWhereNeedToSaveXmlFile, final String stockName ) {
 
+        final String PATH_XML = pathWhereNeedToSaveXmlFile + stockName + ".dtd";
         log.info("starting downloading");
         try {
             downloadUsingStream(url, PATH_XML);
@@ -36,14 +36,15 @@ public class Parse implements XmlParse{
             e.printStackTrace();
         }
         log.info("finished parsing");
-        log.info("Offer size is " + offersDTO.getOfferDTOList().size());
+        if(offersDTO.getOfferDTOList().size() != 0) {
+            log.info("Offer size is " + offersDTO.getOfferDTOList().size());
 
-        return offersDTO;
+            return offersDTO;
+        }else return new OffersDTO();
     }
 
     private OffersDTO parseXmlStock(final String stockName)
         throws SAXException, ParserConfigurationException, IOException, InterruptedException {
-        Thread.sleep(100);
         SAXParserFactory factory = SAXParserFactory.newInstance();
         factory.setValidating(false);
         factory.setNamespaceAware(true);
@@ -59,7 +60,6 @@ public class Parse implements XmlParse{
 
     private void downloadUsingStream(final String urlStr, final String stockName)
         throws IOException, InterruptedException {
-        Thread.sleep(100);
         URL url = new URL(urlStr);
         BufferedInputStream bis = new BufferedInputStream(url.openStream());
         FileOutputStream fis = new FileOutputStream(stockName);
@@ -71,5 +71,4 @@ public class Parse implements XmlParse{
         fis.close();
         bis.close();
     }
-
 }

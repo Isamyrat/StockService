@@ -62,8 +62,9 @@ public class UserController {
 
         if (!bindingResult.hasErrors()) {
             userService.saveUser(user);
-            return "redirect:/auth/login";
+            return "redirect:/";
         }
+
         Map<String, String> errorsMap = ControllerUtils.getErrors(bindingResult);
 
         model.addAttribute("user", user)

@@ -27,6 +27,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserDetailsService, UserService {
 
+    public static final String USERNAME_IS_OCCUPIED_PLEASE_CHANGE_IT = "Username is occupied. Please change it";
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
@@ -39,7 +40,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     @Override
     public void saveUser(UserDto userDto) {
         if (isUsernameExist(userDto.getUsername())) {
-            throw new BadRequestException("Username is occupied. Please change it");
+            throw new BadRequestException(USERNAME_IS_OCCUPIED_PLEASE_CHANGE_IT);
         }
         UserEntity user = fillingInUserData(userDto);
         userRepository.save(user);
@@ -51,7 +52,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 
         if (!user.getUsername().equals(userEditRequestDTO.getUsername())) {
             if (isUsernameExist(userEditRequestDTO.getUsername())) {
-                throw new BadRequestException("Username is occupied. Please change it");
+                throw new BadRequestException(USERNAME_IS_OCCUPIED_PLEASE_CHANGE_IT);
             }
         }
         UserEntity userEntity = fillInUserDataForUpdate(userEditRequestDTO);
@@ -119,13 +120,9 @@ public class UserServiceImpl implements UserDetailsService, UserService {
         return userRepository.findByUsername(userName)
             .orElseThrow(() -> new NotFoundException("Can not find user with this userName: " + userName));
     }
+
     @Override
     public Long count() {
         return userRepository.count();
-    }
-
-    @Override
-    public String getRoleByUserName(final String userName) {
-        return findUserByUserName(userName).getRole().getName();
     }
 }

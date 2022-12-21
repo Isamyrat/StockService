@@ -5,14 +5,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.security.Principal;
-
 public class PutUserInModelInterceptor implements HandlerInterceptor {
 
-
     @Override
-    public boolean preHandle(HttpServletRequest aRequest, HttpServletResponse aResponse, Object aHandler)
-        throws Exception {
+    public boolean preHandle(HttpServletRequest aRequest, HttpServletResponse aResponse, Object aHandler) {
         return true;
     }
 
@@ -20,11 +16,12 @@ public class PutUserInModelInterceptor implements HandlerInterceptor {
     public void postHandle(HttpServletRequest aRequest,
                            HttpServletResponse aResponse,
                            Object aHandler,
-                           ModelAndView aModelAndView) throws Exception {
+                           ModelAndView aModelAndView) {
+
         if (aModelAndView != null) {
-            Principal user = aRequest.getUserPrincipal();
             aModelAndView
-                .addObject("__user", user);
+                .addObject("__user", aRequest.getUserPrincipal())
+                .addObject("__adminRole", aRequest.isUserInRole("ROLE_ADMIN"));
         }
     }
 
@@ -32,6 +29,6 @@ public class PutUserInModelInterceptor implements HandlerInterceptor {
     public void afterCompletion(HttpServletRequest aRequest,
                                 HttpServletResponse aResponse,
                                 Object aHandler,
-                                Exception aEx) throws Exception {
+                                Exception aEx) {
     }
 }

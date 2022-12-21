@@ -1,7 +1,7 @@
 <#import "../parts/common.ftl" as c>
 <@c.page>
     <head>
-        <title>User list</title>
+        <title>Список пользователей</title>
         <link rel="stylesheet" href="../../static/table.css" />
         <link rel="stylesheet" href="../../static/button.css" />
         <link rel="stylesheet" href="../../static/search.css" />
@@ -10,7 +10,7 @@
     <!--MDB Tables-->
     <div class="container mt-4">
 
-        <h1 class="font-bold text-center">List of users</h1>
+        <h1 class="font-bold text-center">Список пользователей</h1>
 
         <div class="card mb-4">
             <div class="card-body">
@@ -25,7 +25,7 @@
                                 <div class="form">
                                     <form action="/user/findAll" method="get">
                                         <input type="text" class="form-control form-input" name="keyword"
-                                               placeholder="Search anything..."/>
+                                               placeholder="Поищем?..."/>
                                     </form>
                                 </div>
 
@@ -40,9 +40,9 @@
                     <!--Table head-->
                     <thead>
                     <tr>
-                        <th>Full name</th>
-                        <th>Username</th>
-                        <th>Edit</th>
+                        <th>ФИО</th>
+                        <th>логин</th>
+                        <th>именить пользователя</th>
                     </tr>
                     </thead>
                     <!--Table head-->
@@ -55,7 +55,7 @@
                             <td>${user.username}</td>
                             <td><a href="/user/editForm/${user.id}"
                                    class="highlight-button btn btn-medium button xs-margin-bottom-five"
-                                   data-abc="true">edit</a></td>
+                                   data-abc="true">изменить</a></td>
                         </tr>
                     </#list>
                     </tbody>
@@ -65,7 +65,7 @@
                 <div class="col-md-12 col-sm-12 center-col text-center">
                     <#if hasPrev><a href="${'/user/findAll?page=' + prev + '&keyword=' + keyword}"
                                     class="highlight-button btn btn-medium button xs-margin-bottom-five"
-                                    data-abc="true">Prev</a>&nbsp;&nbsp;&nbsp;</#if>
+                                    data-abc="true">Prev</a></#if>
                     <#if hasNext><a href="${'/user/findAll?page=' + next + '&keyword=' + keyword}"
                                     class="highlight-button btn btn-medium button xs-margin-bottom-five"
                                     data-abc="true">Next</a></#if>

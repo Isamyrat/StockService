@@ -4,7 +4,6 @@ import com.example.Task.dto.ErrorMessageDto;
 import com.example.Task.exception.BadRequestException;
 import com.example.Task.exception.ForbiddenException;
 import com.example.Task.exception.NotFoundException;
-import com.example.Task.exception.UnauthorizedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -35,13 +34,6 @@ public class ExceptionController {
     @ExceptionHandler(ForbiddenException.class)
     public @ResponseBody
     ErrorMessageDto forbidden(ForbiddenException e) {
-        return new ErrorMessageDto(e.getMessage());
-    }
-
-    @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    @ExceptionHandler(UnauthorizedException.class)
-    public @ResponseBody
-    ErrorMessageDto jwtExpired(UnauthorizedException e) {
         return new ErrorMessageDto(e.getMessage());
     }
 

@@ -38,4 +38,30 @@
             VALUES ('Thomas', '$2a$10$E6k9MZd.geehGpTB2ZwcQOttxeA6hi5bwekq.ND6xpDgp23BMJnAO', 'user_third_root', 2)
         </sql>
     </changeSet>
+    <changeSet id="UPDATE_STOCK_VALUE" author="gurbanov" >
+        <update tableName="STOCK">
+            <column name="FEED_LINK" value="https://export.admitad.com/ru/webmaster/websites/2090016/products/export_adv_products/?user=shaa80&amp;code=nztwz8ig83&amp;feed_id=21418&amp;format=xml" />
+            <where>NAME = 'STOCK_NAME'</where>
+        </update>
+        <update tableName="STOCK">
+            <column name="FEED_LINK" value="http://export.admitad.com/ru/webmaster/websites/2090016/products/export_adv_products/?user=shaa80&amp;code=nztwz8ig83&amp;feed_id=23007&amp;format=xml" />
+            <where>NAME = 'STOCK_NAME_2'</where>
+        </update>
+    </changeSet>
+    <changeSet id="UPDATE_PRODUCT_VALUE" author="gurbanov" >
+        <update tableName="PRODUCT">
+            <column name="FLAG" value="MANUAL_MODE" />
+            <where>ID = '172fb0cd-aa4f-4a05-8e07-b9f7e58fe52c'</where>
+        </update>
+    </changeSet>
+    <changeSet id="INSERT_PRODUCT_TO_CHECK_FORM" author="gurbanov">
+        <sql>
+            INSERT INTO PRODUCT(ID, NAME, PRICE, FLAG, STOCK_ID)
+            VALUES ('19d97709-651f-4913-9a4c-e543a6b6ccd2', 'PRODUCT_NAME_THIRD', 15.2, 'MANUAL_MODE', 1)
+        </sql>
+        <sql>
+            INSERT INTO PRODUCT(ID, NAME, PRICE, FLAG, STOCK_ID)
+            VALUES ('8963d3c0-1744-45c0-a6ee-513412f2d11e', 'PRODUCT_NAME_FOURTH', 22.2, 'MANUAL_MODE', 2)
+        </sql>
+    </changeSet>
 </databaseChangeLog>

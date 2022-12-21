@@ -1,7 +1,7 @@
 <#import "../parts/common.ftl" as c>
 <@c.page>
     <head>
-        <title>Add picture to product</title>
+        <title>Добавление фото</title>
         <link rel="stylesheet" href="../../static/addEditForm.css" />
     </head>
     <div class="addEdit-form">

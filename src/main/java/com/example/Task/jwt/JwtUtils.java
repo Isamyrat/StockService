@@ -4,7 +4,6 @@ import com.example.Task.exception.UnauthorizedException;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
@@ -14,15 +13,8 @@ import static com.example.Task.util.ConstantsHolder.SECRET;
 
 @Component
 public class JwtUtils {
-    @Value("${jwt.expiration-time}")
-    private int expirationTime;
-    public static final String BEARER_PREFIX = "Bearer ";
 
-    public String getJwtToken(String username) {
-        return generateToken(username,
-                             SECRET,
-                             expirationTime);
-    }
+    public static final String BEARER_PREFIX = "Bearer ";
 
     public static String generateToken(String username, String secret, int expirationTime) {
         return Jwts.builder()

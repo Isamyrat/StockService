@@ -2,7 +2,7 @@
 
 <@c.page>
     <head>
-        <title>Product</title>
+        <title>Товар</title>
         <link rel="stylesheet" href="../../static/product.css" />
     </head>
 
@@ -34,8 +34,8 @@
                 <div class='cvp'>
                     <h5 class="card-title font-weight-bold" style="max-width: 400px">${product.name}</h5>
                     <p class="card-text">${product.price}</p>
-                    <a href="/product/findAll/${stockId}" class="btn cart px-auto">Back to Product List</a>
-                    <a href="/product/addPicture/${product.id}" class="btn cart px-auto">Add picture to product</a>
+                    <a href="/product/findAll/${stockId}" class="btn cart px-auto">Назад к спискам товаров</a>
+                    <a href="/product/addPicture/${product.id}" class="btn cart px-auto">Добавить фотографию к товару</a>
                 </div>
             </div>
         </div>

@@ -18,6 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,7 +30,8 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
-    public static final String CAN_NOT_FIND_PRODUCT_WITH_THIS_ID = "Can not find product.ftl with this id: ";
+    public static final String CAN_NOT_FIND_PRODUCT_WITH_THIS_ID = "Can not find product with this id: ";
+    public static final String PATH_OF_SAX_FILES = "src/main/resources/sax/";
     private final ProductRepository productRepository;
     private final ProductPictureRepository productPictureRepository;
     private final StockService stockService;
@@ -106,18 +108,21 @@ public class ProductServiceImpl implements ProductService {
         return productDTO;
     }
 
-    private void deleteAllProductByStock(final StockEntity stockEntity) {
+    @Override
+    public void deleteAllProductByStock(final StockEntity stockEntity) {
         productPictureRepository.deleteAllProductPicturesByStockId(stockEntity.getId(), ProductMode.AUTO_MODE.getStr());
         productRepository.deleteAllByStockIdAndFlag(stockEntity.getId(), ProductMode.AUTO_MODE.getStr());
     }
 
     @Transactional
+    @Override
     public void saveAllProductFromXmlFeed(final OffersDTO offersDTO, final StockEntity stockEntity) {
         List<ProductEntity> productEntityList = new ArrayList<>();
-        for (OfferDTO offerDTO : offersDTO.getOfferDTOList()) {
-            if (!productRepository.existsByName(offerDTO.getName())) {
-                productEntityList.add(mapProductByOffer(offerDTO, stockEntity.getId()));
-
+        if(offersDTO.getOfferDTOList() != null) {
+            for (OfferDTO offerDTO : offersDTO.getOfferDTOList()) {
+                if (!productRepository.existsByName(offerDTO.getName())) {
+                    productEntityList.add(mapProductByOffer(offerDTO, stockEntity.getId()));
+                }
             }
         }
         productRepository.saveAll(productEntityList);
@@ -144,6 +149,7 @@ public class ProductServiceImpl implements ProductService {
         return productPictureEntity;
     }
 
+    @Scheduled(cron = "0 */13 * ? * *")
     public void updateProductsInStockEveryThirteenMinutes() {
         final List<StockEntity> stockEntityList = stockService.findAllStockEntityWithFeed();
         for (StockEntity stockEntity : stockEntityList) {
@@ -151,11 +157,17 @@ public class ProductServiceImpl implements ProductService {
             log.info("Starting delete product.ftl with auto mode");
             deleteAllProductByStock(stockEntity);
             log.info("Deleted All product.ftl with auto mode");
-            OffersDTO offersDTO = xmlParse.parser(stockEntity.getFeedLink(), stockEntity.getName());
+            OffersDTO offersDTO = senderToDao(PATH_OF_SAX_FILES,stockEntity.getFeedLink(), stockEntity.getName());
             log.info("Starting to save offers");
             saveAllProductFromXmlFeed(offersDTO, stockEntity);
             log.info("Finished to save offers");
         }
+    }
+
+    @Transactional
+    @Override
+    public OffersDTO senderToDao(final String xmlFilePath,final String feedLink, final String stockName){
+        return xmlParse.parser(feedLink, xmlFilePath, stockName);
     }
 
     @Override

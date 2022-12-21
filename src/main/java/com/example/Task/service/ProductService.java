@@ -1,7 +1,9 @@
 package com.example.Task.service;
 
+import com.example.Task.dto.OffersDTO;
 import com.example.Task.dto.ProductDTO;
 import com.example.Task.entity.ProductEntity;
+import com.example.Task.entity.StockEntity;
 
 import java.util.List;
 
@@ -21,7 +23,11 @@ public interface ProductService {
 
     void deleteById(final String id);
 
-    void updateProductsInStockEveryThirteenMinutes();
-
     Long count();
+
+    void deleteAllProductByStock(final StockEntity stockEntity);
+
+    void saveAllProductFromXmlFeed(final OffersDTO offersDTO, final StockEntity stockEntity);
+
+    OffersDTO senderToDao(final String xmlFilePath, final String feedLink, final String stockName);
 }

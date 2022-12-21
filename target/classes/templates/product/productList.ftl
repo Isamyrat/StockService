@@ -2,7 +2,7 @@
 
 <@c.page>
     <head>
-        <title>Product list</title>
+        <title>Список товаров</title>
         <link rel="stylesheet" href="../../static/table.css" />
         <link rel="stylesheet" href="../../static/search.css" />
         <link rel="stylesheet" href="../../static/button.css" />
@@ -12,7 +12,7 @@
     <!--MDB Tables-->
     <div class="container mt-4">
 
-        <h1 class="font-bold text-center">List of products</h1>
+        <h1 class="font-bold text-center">Список товаров</h1>
 
         <div class="card mb-4">
             <div class="card-body">
@@ -21,10 +21,10 @@
                     <div class="col-md-12 col-sm-12 center-col text-center">
                         <a href="/product/add/${stockId}"
                            class="highlight-button btn btn-medium button xs-margin-bottom-five"
-                           data-abc="true">Add product</a>
+                           data-abc="true">Добавить товар</a>
                         <a href="/stock/findAll"
                            class="highlight-button btn btn-medium button xs-margin-bottom-five"
-                           data-abc="true">Back to stock list</a>
+                           data-abc="true">Назад к списку акций</a>
                     </div>
                     <!-- Grid column -->
                     <div class="container">
@@ -35,7 +35,7 @@
                                 <div class="form">
                                     <form action="/product/findAll/${stockId}" method="get">
                                         <input type="text" class="form-control form-input" name="productData"
-                                               placeholder="Search anything..."/>
+                                               placeholder="Поищем?..."/>
                                     </form>
                                 </div>
 
@@ -50,12 +50,12 @@
                     <!--Table head-->
                     <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Price</th>
-                        <th>Flag</th>
-                        <th>View details</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
+                        <th>Название товара</th>
+                        <th>Цена товара</th>
+                        <th>Режим товара</th>
+                        <th>Просмотр товара(фото)</th>
+                        <th>Изменить товар</th>
+                        <th>Удалить товар</th>
                     </tr>
                     </thead>
                     <!--Table head-->
@@ -73,16 +73,16 @@
                             <td>
                                 <a href="/product/getById/${product.id}"
                                    class="highlight-button btn btn-medium button xs-margin-bottom-five"
-                                   data-abc="true">view</a>
+                                   data-abc="true">посмотреть</a>
                             </td>
                             <td>
                                 <a href="/product/editForm/${product.id}"
                                    class="highlight-button btn btn-medium button xs-margin-bottom-five"
-                                   data-abc="true">edit</a>
+                                   data-abc="true">изменить</a>
                             </td>
                             <td>
                                 <form action="/product/delete/${product.id}/${stockId}" method="post">
-                                    Delete this item?
+                                    Удалить этот товар?
                                     <input type="submit"
                                            class="highlight-button btn btn-medium button xs-margin-bottom-five"
                                            data-abc="true" value="Yes"/>
@@ -98,8 +98,8 @@
                     <#if hasPrev><a href="${'/product/findAll/${stockId}?page=' + prev + '&productData=' + productData}"
                                     class="highlight-button btn btn-medium button xs-margin-bottom-five"
                                     data-abc="true">
-                            Prev</a>&nbsp;&nbsp;&nbsp;</#if>
-                    <#if hasNext><a href="${'/product/findAll/${stockId}?page=' + next+ '&productData=' + productData}"
+                            Prev</a></#if>
+                    <#if hasNext><a href="${'/product/findAll/${stockId}?page=' + next + '&productData=' + productData}"
                                     class="highlight-button btn btn-medium button xs-margin-bottom-five"
                                     data-abc="true">Next</a></#if>
 

@@ -8,17 +8,19 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import static com.example.Task.dto.UserDto.FULL_NAME_CAN_NOT_BE_EMPTY;
+import static com.example.Task.dto.UserDto.USERNAME_CAN_NOT_BE_EMPTY;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode
-@AllArgsConstructor
 public class UserEditRequestDTO {
-    @NotBlank(message = "Full name can not be empty.")
+    @NotBlank(message =  FULL_NAME_CAN_NOT_BE_EMPTY)
     @Size(max = 100)
     private String fullName;
 
-    @NotBlank(message = "Username can not be empty.")
+    @NotBlank(message = USERNAME_CAN_NOT_BE_EMPTY)
     @Size(max = 50)
     private String username;
 }

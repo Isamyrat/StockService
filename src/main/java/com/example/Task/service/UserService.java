@@ -17,7 +17,5 @@ public interface UserService {
 
     Long count();
 
-    String getRoleByUserName(final String userName);
-
     UserEntity fillingInUserData(UserDto userDto);
 }

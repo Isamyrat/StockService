@@ -14,7 +14,6 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode
-@AllArgsConstructor
 public class ProductDTO {
     public static final String PRODUCT_PRICE_CAN_NOT_BE_EMPTY = "Product price can not be empty.";
     public static final String PRODUCT_NAME_CAN_NOT_BE_EMPTY = "Product name can not be empty.";
@@ -28,6 +27,7 @@ public class ProductDTO {
 
     @NotBlank(message = PRODUCT_PRICE_CAN_NOT_BE_EMPTY)
     private String price;
+
     private Integer stockId;
 
     private List<ProductPictureEntity> productPictureEntities;

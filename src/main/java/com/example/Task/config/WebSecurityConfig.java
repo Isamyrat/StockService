@@ -12,7 +12,6 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -31,17 +30,24 @@ public class WebSecurityConfig {
         httpSecurity
             .csrf().disable()
             .authorizeHttpRequests((auths) -> {
-                                       auths
-                                           .requestMatchers("/", "/user/registration", "/auth/authenticate", "/auth/login").permitAll()
-                                           .requestMatchers("/user/findAll").hasRole("ADMIN_ROLE")
-                                           .anyRequest().authenticated();
+                                       try {
+                                           auths
+                                               .requestMatchers("/", "/user/registration")
+                                               .permitAll()
+                                               .requestMatchers("/user/**").hasRole("ADMIN")
+                                               .anyRequest().authenticated()
+                                               .and()
+                                               .formLogin().loginPage("/login").permitAll().defaultSuccessUrl("/")
+                                               .and()
+                                               .logout().permitAll().logoutSuccessUrl("/");
+                                       } catch (Exception e) {
+                                           e.printStackTrace();
+                                       }
                                    }
                                   )
             .exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
             .and()
             .authenticationProvider(authenticationProvider())
-            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            .and()
             .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
         return httpSecurity.build();
     }

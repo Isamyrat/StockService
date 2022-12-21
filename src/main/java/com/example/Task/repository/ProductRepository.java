@@ -15,6 +15,7 @@ public interface ProductRepository extends JpaRepository<ProductEntity, String> 
     @Query(value = "DELETE FROM  PRODUCT WHERE stock_id =:id AND flag =:flag", nativeQuery = true)
     void deleteAllByStockIdAndFlag(final Integer id, String flag);
 
+    @Transactional
     @Query(value = "select * from PRODUCT p where p.stock_id =:stockId AND p.name LIKE %:keyword%",nativeQuery = true)
     List<ProductEntity> findAllByProductData(final Integer stockId, final String keyword, Pageable pageable);
 

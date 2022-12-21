@@ -13,7 +13,6 @@ import jakarta.persistence.Table;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.util.List;
@@ -21,7 +20,6 @@ import java.util.List;
 @Getter
 @Setter
 @EqualsAndHashCode
-@ToString
 @Entity
 @Table(name = "PRODUCT")
 public class ProductEntity {
@@ -36,7 +34,6 @@ public class ProductEntity {
     @Column(name = "PRICE")
     private Float price;
 
-    // ручной режим
     @Column(name = "FLAG", nullable = false)
     private String flag;
 
