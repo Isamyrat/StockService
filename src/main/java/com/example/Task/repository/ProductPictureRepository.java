@@ -13,4 +13,8 @@ public interface ProductPictureRepository extends JpaRepository<ProductPictureEn
     @Query(value = "DELETE FROM product_pictures WHERE product_id IN (SELECT id FROM product WHERE stock_id =:id AND flag =:flag)", nativeQuery = true)
     void deleteAllProductPicturesByStockId(final Integer id,final String flag);
 
+
+
+    @Transactional
+    void deleteById(final String id);
 }

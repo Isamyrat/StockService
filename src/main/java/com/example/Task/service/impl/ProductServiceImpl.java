@@ -154,19 +154,23 @@ public class ProductServiceImpl implements ProductService {
         final List<StockEntity> stockEntityList = stockService.findAllStockEntityWithFeed();
         for (StockEntity stockEntity : stockEntityList) {
             log.info("-----------------------------------------------Start------------------------------------");
-            log.info("Starting delete product.ftl with auto mode");
-            deleteAllProductByStock(stockEntity);
-            log.info("Deleted All product.ftl with auto mode");
-            OffersDTO offersDTO = senderToDao(PATH_OF_SAX_FILES,stockEntity.getFeedLink(), stockEntity.getName());
-            log.info("Starting to save offers");
-            saveAllProductFromXmlFeed(offersDTO, stockEntity);
-            log.info("Finished to save offers");
+            if (stockEntity.getFeedLink() == null || stockEntity.getFeedLink().isBlank()) {
+                log.info("Feed link is null");
+            } else {
+                OffersDTO offersDTO = senderToDao(PATH_OF_SAX_FILES, stockEntity.getFeedLink(), stockEntity.getName());
+                log.info("Starting delete product with auto mode");
+                deleteAllProductByStock(stockEntity);
+                log.info("Deleted All product with auto mode");
+                log.info("Starting to save offers");
+                saveAllProductFromXmlFeed(offersDTO, stockEntity);
+                log.info("Finished to save offers");
+            }
         }
     }
 
     @Transactional
     @Override
-    public OffersDTO senderToDao(final String xmlFilePath,final String feedLink, final String stockName){
+    public OffersDTO senderToDao(final String xmlFilePath, final String feedLink, final String stockName) {
         return xmlParse.parser(feedLink, xmlFilePath, stockName);
     }
 

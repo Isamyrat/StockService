@@ -141,4 +141,10 @@ public class ProductController {
         String productId = productPictureService.saveAccountImage(id, pictureLink);
         return "redirect:/product/getById/" + productId;
     }
+
+    @PostMapping(value = "/deleteImage/{id}/{productPictureId}")
+    public String deleteImage(@PathVariable String id, @PathVariable String productPictureId) {
+        productPictureService.deleteImage(id, productPictureId);
+        return "redirect:/product/getById/" + id;
+    }
 }

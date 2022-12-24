@@ -37,7 +37,7 @@ public class WebSecurityConfig {
                                                .requestMatchers("/user/**").hasRole("ADMIN")
                                                .anyRequest().authenticated()
                                                .and()
-                                               .formLogin().loginPage("/login").permitAll().defaultSuccessUrl("/")
+                                               .formLogin().loginPage("/login").permitAll().defaultSuccessUrl("/").failureForwardUrl("/").failureUrl("/")
                                                .and()
                                                .logout().permitAll().logoutSuccessUrl("/");
                                        } catch (Exception e) {

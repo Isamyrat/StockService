@@ -15,10 +15,10 @@ import java.net.URL;
 
 @Slf4j
 @Service
-public class Parse implements XmlParse{
+public class Parse implements XmlParse {
 
     @Override
-    public OffersDTO parser(final String url,final String pathWhereNeedToSaveXmlFile, final String stockName ) {
+    public OffersDTO parser(final String url, final String pathWhereNeedToSaveXmlFile, final String stockName) {
 
         final String PATH_XML = pathWhereNeedToSaveXmlFile + stockName + ".dtd";
         log.info("starting downloading");
@@ -36,11 +36,8 @@ public class Parse implements XmlParse{
             e.printStackTrace();
         }
         log.info("finished parsing");
-        if(offersDTO.getOfferDTOList().size() != 0) {
-            log.info("Offer size is " + offersDTO.getOfferDTOList().size());
-
-            return offersDTO;
-        }else return new OffersDTO();
+        log.info("Offer size is " + offersDTO.getOfferDTOList().size());
+        return offersDTO;
     }
 
     private OffersDTO parseXmlStock(final String stockName)
